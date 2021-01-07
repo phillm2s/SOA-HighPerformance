@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Active Tasks</title>
+</head>
+<body>
+    <form action="/">
+        <input type="submit" value="Home" />
+    </form>
+    <h1>Active Tasks</h1>
+
+
+    <div>
+        <table border="1">
+            <th>Name</th>
+            <th>assignee</th>
+
+            <tr th:each ="task : ${tasks}">
+                <td th:utext="${task.name}">...</td>
+                <td th:utext="${task.assignee}">...</td>
+                <td>
+
+                    <form th:action="@{/task}" method="get">
+                        <button type="submit" th:name="taskID" th:value="${task.id}">Continue</button>
+                    </form>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</body>
+</html>

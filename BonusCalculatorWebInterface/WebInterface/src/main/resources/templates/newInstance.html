@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Start new Process Instance</title>
+</head>
+<body>
+    <form action="/">
+        <input type="submit" value="Home" />
+    </form>
+    <h1>Start new Process Instance</h1>
+
+    <h2>Available Processes:</h2>
+
+    <div>
+        <table border="1">
+            <th>Process Definition Key</th>
+            <th>Version</th>
+
+            <tr th:each ="pd : ${processDefinitions}">
+                <td th:utext="${pd.key}">...</td>
+                <td th:utext="${pd.version}">...</td>
+                <td>
+
+                    <form th:action="@{/newInstance}" method="post">
+                        <button type="submit" th:name="processID" th:value="${pd.id}">Start</button>
+                    </form>
+
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

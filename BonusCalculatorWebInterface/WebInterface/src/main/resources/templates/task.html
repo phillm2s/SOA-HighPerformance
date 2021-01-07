@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${task.name}"></title>
+</head>
+<body>
+    <form action="/">
+        <input type="submit" value="Home" />
+    </form>
+
+    <h1 th:text="'Task: ' + ${task.name}"></h1>
+    <h2 th:text="'ID: ' + ${task.id}"></h2>
+    <h2 th:text="'Assigned to: ' + ${task.assignee}"></h2>
+
+    <form action="#" th:action="@{/completeTask}" th:object="${form}" method="post">
+        <table border="1">
+            <th>Name</th>
+            <th>type</th>
+            <th>value</th>
+            <tr th:each="variable, itemStat : *{variables}">
+                <td th:utext="${variable.name}">...</td>
+                <td th:utext="${variable.type}"> </td>
+                <td><input style="border-color: blue" th:field="*{variables[__${itemStat.index}__].value}" /></td>
+                <input type="hidden" th:name="|variables[${itemStat.index}].name|" th:value="${variable.getName()}"/>
+                <input type="hidden" th:name="|variables[${itemStat.index}].type|" th:value="${variable.getType()}"/>
+            </tr>
+        </table>
+        <input type="hidden" th:name="taskID" th:value="${task.id}"/>
+        <input type="submit" id="submitButton" th:value="Save">
+
+    </form>
+
+</body>
+</html>

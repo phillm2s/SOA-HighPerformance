@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_0jq2ndq" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <decision id="socialEvaluationRules" name="Soziale Evaluations Regeln">
+    <extensionElements>
+      <biodi:bounds x="150" y="150" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="InputClause_1cncgt3" label="Social Evaluation Type" camunda:inputVariable="typeName">
+        <inputExpression id="LiteralExpression_0z6u872" typeRef="string">
+          <text>socialEvaluation.description</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1iexbir" label="ActualValue " camunda:inputVariable="actualValue">
+        <inputExpression id="LiteralExpression_19pyqyg" typeRef="integer">
+          <text>socialEvaluation.getActualValue()</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Bonus" name="bonus" typeRef="string" />
+      <rule id="DecisionRule_1lleroy">
+        <inputEntry id="UnaryTests_0q1qomi">
+          <text>"Leadership Competence"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tlekgz">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1e6ximq" expressionLanguage="juel">
+          <text>socialEvaluation.getActualValue() * 10</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m5833e">
+        <inputEntry id="UnaryTests_1danide">
+          <text>"Openness to Employee"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19o8itf">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a6f8ob">
+          <text>socialEvaluation.getActualValue() * 12</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f9wvet">
+        <inputEntry id="UnaryTests_1d3691q">
+          <text>"Social behaviour to Employee","Attitude towards Clients","Communication Skills"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uu951p">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xlgkb5">
+          <text>socialEvaluation.getActualValue() * 8</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ugimc5">
+        <inputEntry id="UnaryTests_1uyxxp7">
+          <text>"Integrety to Company"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15nemq5">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g3c5qr">
+          <text>socialEvaluation.getActualValue() * 15</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_038mhmy">
+        <inputEntry id="UnaryTests_16kwyxn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f7ry5h">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ev5h17">
+          <text>"not Configured"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

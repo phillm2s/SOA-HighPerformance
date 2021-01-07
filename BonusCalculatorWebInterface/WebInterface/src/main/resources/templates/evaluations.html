@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${task.name}"></title>
+</head>
+<body>
+    <form action="/">
+        <input type="submit" value="Home" />
+    </form>
+
+
+    <h1 th:text="'Task: ' + ${task.name}"></h1>
+    <h2 th:text="'ID: ' + ${task.id}"></h2>
+    <h2 th:text="'Assigned to: ' + ${task.assignee}"></h2>
+
+    <br></br>
+
+    <h2>Edit Evaluations:</h2>
+
+    <div id = "allEvaluations" th:object="${evaluationsForm}">
+
+        <form action="#" th:action="@{/updateEvaluation}" method="post">
+            <div th:each="evaluation, evaluationsStat : *{evaluations}">
+
+                <table id="evaluation" border="2" style="border-color: green" >
+                    <tr>
+                        <td>
+                            <table id="basicInfos" border="1" >
+                                <th>Name</th>
+                                <th>Employee ID</th>
+                                <th>Department</th>
+                                <th>Year of Performance</th>
+                                <tr>
+                                    <td th:utext="${evaluation.fullName}">...</td>
+                                    <td th:utext="${evaluation.emplyeeID}">...</td>
+                                    <td th:utext="${evaluation.department}">...</td>
+                                    <td th:utext="${evaluation.year}">...</td>
+                                </tr>
+                            </table>
+
+
+
+
+                            <br></br>
+                            <p>A) Order Evaluation:</p>
+                            <table border="1">
+                                <th>Name of Product</th>
+                                <th>Client</th>
+                                <th>Client Ranking</th>
+                                <th>Items</th>
+                                <th>Bonus</th>
+                                <th>Comment</th>
+
+                                <tr th:each="orderEvaluation, orderEvaluationsStat : ${evaluation.orderEvaluations}">
+                                    <td th:utext="${orderEvaluation.productName}">...</td>
+                                    <td th:utext="${orderEvaluation.clientName}">...</td>
+                                    <td th:utext="${orderEvaluation.clientRanking}">...</td>
+                                    <td th:utext="${orderEvaluation.amount}">...</td>
+                                    <td><input style="border-color: blue" th:field="*{evaluations[__${evaluationsStat.index}__].orderEvaluations[__${orderEvaluationsStat.index}__].bonus}" /></td>
+                                    <td><input style="border-color: blue" th:field="*{evaluations[__${evaluationsStat.index}__].orderEvaluations[__${orderEvaluationsStat.index}__].comment}" /></td>
+
+
+                                    <input type ="hidden" th:field="*{evaluations[__${evaluationsStat.index}__].orderEvaluations[__${orderEvaluationsStat.index}__].orderEvaluationID}" />
+                                </tr>
+
+
+                            </table >
+                            <p> </p>
+                            <table border="1">
+                                <td>Total Bonus for part A)</td>
+                                <td th:utext="${evaluation.getTotalBonusOrderEvaluation()}"> </td>
+                            </table>
+
+
+
+                            <br></br>
+                            <p>B) Social Performance Evaluation:</p>
+                            <table border="1">
+                                <th></th>
+                                <th>Target Value</th>
+                                <th>Actual Value</th>
+                                <th>Bonus</th>
+                                <th>Comment</th>
+
+                                <tr th:each="socialEvaluation, socialEvaluationsStat : ${evaluation.socialEvaluations}">
+                                    <td th:utext="${socialEvaluation.description}">...</td>
+                                    <td th:utext="${socialEvaluation.targetValue}">...</td>
+                                    <td th:utext="${socialEvaluation.actualValue}">...</td>
+                                    <td><input style="border-color: blue" th:field="*{evaluations[__${evaluationsStat.index}__].socialEvaluations[__${socialEvaluationsStat.index}__].bonus}" /></td>
+                                    <td><input style="border-color: blue" th:field="*{evaluations[__${evaluationsStat.index}__].socialEvaluations[__${socialEvaluationsStat.index}__].comment}" /></td>
+
+
+                                    <input type ="hidden" th:field="*{evaluations[__${evaluationsStat.index}__].socialEvaluations[__${socialEvaluationsStat.index}__].socialEvaluationID}" />
+                                </tr>
+
+
+                            </table>
+                            <p> </p>
+                            <table border="1">
+                                <td>Total Bonus for part B)</td>
+                                <td th:utext="${evaluation.getTotalBonusSocialEvaluation()}"> </td>
+                            </table>
+
+                            <br></br>
+
+                            <table border="1">
+                                <td>Total Bonus for parts A) and B)</td>
+                                <td th:utext="${evaluation.getBonus()}"> </td>
+                            </table>
+                            <table border="1">
+                                <td>Remarks:</td>
+                                <td><input style="border-color: blue" th:field="*{evaluations[__${evaluationsStat.index}__].comment}" /></td>
+                                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                <td> <button type="button">Set Digital Signature and Authorize Evaluation</button>    </td>
+                            </table>
+
+                            </table>
+                            <br></br>
+
+
+
+                        </td>
+                    </tr>
+                    <input type ="hidden" th:field="*{evaluations[__${evaluationsStat.index}__].evaluationID}" />
+                </table>
+                <br></br>
+            </div>
+            <input type="hidden" th:name="taskID" th:value="${task.id}"/>
+            <input style="font-size: 30px" type="submit" id="submitButton" th:value=" Complete ">
+        </form>
+        <br></br>
+    </div>
+
+</body>
+</html>

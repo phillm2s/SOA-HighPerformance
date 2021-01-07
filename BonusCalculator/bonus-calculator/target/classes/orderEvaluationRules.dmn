@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0fafi4t" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.7.3">
+  <decision id="orderEvaluationRules" name="OrderEvaluationRules">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Product">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>orderEvaluation.productName</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_13i1mer" label="Client Ranking" camunda:inputVariable="clientRanking">
+        <inputExpression id="LiteralExpression_17xm52a" typeRef="integer">
+          <text>orderEvaluation.getClientRanking()</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0v5b4ws" label="Items" camunda:inputVariable="items">
+        <inputExpression id="LiteralExpression_1lmansl" typeRef="integer">
+          <text>orderEvaluation.getAmount()</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Bonus" name="bonus" typeRef="string" />
+      <rule id="DecisionRule_1jcdalu">
+        <inputEntry id="UnaryTests_08iwbv1">
+          <text>"HooverGo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rptz1b">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_037eunm">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gwktsd">
+          <text>(orderEvaluation.getAmount() * 15 ) + (orderEvaluation.getClientRanking() * 30)</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vm4jq6">
+        <inputEntry id="UnaryTests_0eah02y">
+          <text>"HooverClean"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n2vhz3">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o27bjc">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02p0cov">
+          <text>(orderEvaluation.getAmount() *25) + (orderEvaluation.getClientRanking() * 40)</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ptpkov">
+        <inputEntry id="UnaryTests_1cpmoyw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10rxxx8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00ohf6k">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h7kpvt">
+          <text>null</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

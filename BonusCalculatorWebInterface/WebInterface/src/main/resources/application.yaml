@@ -1,0 +1,11 @@
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    serviceURL:
+      defaultZone: http://sepp-production.inf.h-brs.de:8761/eureka/
+
